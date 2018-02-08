@@ -1,5 +1,7 @@
 package ru.johnson.airblocknote.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @MappedSuperclass
@@ -19,5 +21,10 @@ public abstract class BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @JsonIgnore
+    public boolean isNew() {
+        return id == null;
     }
 }

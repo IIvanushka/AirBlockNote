@@ -14,6 +14,9 @@ public class User extends BaseEntity {
     @Column(name = "email", nullable = false)
     private String email;
 
+    public User() {
+    }
+
     public User(String name, String email) {
         this.name = name;
         this.email = email;
@@ -33,5 +36,14 @@ public class User extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + getId() + '\'' +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
