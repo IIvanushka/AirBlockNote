@@ -1,37 +1,64 @@
 package ru.johnson.airblocknote.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "noteentities")
 public class NoteEntity extends BaseEntity {
 
-    @Column(name = "noteid", nullable = false)
-    @NotNull
-    private Long noteId;
+    @Column(name = "active")
+    private boolean active;
 
-    @Column(name = "article")
-    private String article;
+    @Column(name = "description")
+    private String description;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "note_id")
+    @JsonIgnore
+    private Note note;
 
     public NoteEntity() {
     }
 
-    public Long getNoteId() {
-        return noteId;
+    public NoteEntity(boolean active, String description, Note note) {
+        this.active = active;
+        this.description = description;
+        this.note = note;
     }
 
-    public void setNoteId(Long noteId) {
-        this.noteId = noteId;
+    public Note getNote() {
+        return note;
     }
 
-    public String getArticle() {
-        return article;
+    public void setNote(Note note) {
+        this.note = note;
     }
 
-    public void setArticle(String article) {
-        this.article = article;
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "NoteEntity{" +
+                "active=" + active +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
